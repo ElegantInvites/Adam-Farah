@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <script>
     (function () {
+      if (window.location.protocol === 'file:') return;
       var parts = window.location.pathname.split('/').filter(Boolean);
       var idx = parts.indexOf('invitations');
       if (idx !== -1) {
@@ -58,6 +59,10 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Preload couple portraits for reliable display -->
+  <link rel="preload" as="image" href="assets/bride.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="assets/groom.jpg" type="image/jpeg">
+
   <!-- Critical layout — ensures intro overlay works even if CSS is delayed -->
   <style id="critical-layout">
     body.intro-active { overflow: hidden; }
@@ -70,6 +75,10 @@
       min-height: 100vh;
       min-height: 100dvh;
       z-index: 9998;
+    }
+    #intro-scene.intro-scene--visible {
+      opacity: 1 !important;
+      visibility: visible !important;
     }
     #premium-controls.premium-controls {
       position: fixed;
@@ -111,7 +120,6 @@
 
   <!-- ==================== CINEMATIC INTRO SCENE ==================== -->
   <section id="intro-scene" class="intro-scene" aria-label="Wedding invitation cinematic intro">
-    <!-- Ambient background layers -->
     <div class="intro-bg">
       <div class="intro-gradient"></div>
       <div class="intro-light intro-light--top"></div>
@@ -122,9 +130,7 @@
       <div id="intro-sparkles" class="intro-sparkles" aria-hidden="true"></div>
     </div>
 
-    <!-- Camera zoom container -->
     <div class="intro-camera" id="intro-camera">
-      <!-- Luxury wedding arch & door -->
       <div class="intro-arch-wrap">
         <div class="intro-arch">
           <div class="arch-curve"></div>
@@ -132,7 +138,6 @@
           <div class="arch-pillar arch-pillar--right"></div>
         </div>
 
-        <!-- Floral decorations -->
         <div class="intro-florals intro-florals--left" aria-hidden="true">
           <span class="floral-leaf"></span><span class="floral-leaf"></span><span class="floral-bloom"></span>
         </div>
@@ -140,7 +145,6 @@
           <span class="floral-leaf"></span><span class="floral-leaf"></span><span class="floral-bloom"></span>
         </div>
 
-        <!-- 3D Door -->
         <div class="door-scene">
           <div class="door-glow" id="door-glow"></div>
           <div class="door-interior">
@@ -165,7 +169,6 @@
       </div>
     </div>
 
-    <!-- Couple names & CTA (revealed after door opens) -->
     <div class="intro-reveal" id="intro-reveal">
       <div class="intro-names">
         <span class="intro-name" id="intro-groom-name">Adam</span>
@@ -179,9 +182,8 @@
       </button>
     </div>
 
-    <!-- Enter with music — user must click to start -->
     <button type="button" class="btn-enter-music" id="btn-enter-music">
-      <span class="btn-enter-music-icon">🎵</span>
+      <span class="btn-enter-music-icon"><i class="fas fa-music"></i></span>
       <span id="btn-enter-music-text">Enter With Music</span>
     </button>
 
@@ -200,11 +202,6 @@
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- ==================== FLOATING WHATSAPP ==================== -->
-  <a href="#" id="whatsapp-float" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
   <!-- ==================== FLOATING INSTAGRAM (Elegant Invites) ==================== -->
   <a href="https://www.instagram.com/elegantinvites2_/" id="instagram-float" class="instagram-float" target="_blank" rel="noopener noreferrer" aria-label="Elegant Invites on Instagram">
     <i class="fab fa-instagram"></i>
@@ -212,13 +209,17 @@
 
   <!-- ==================== LIGHTBOX (Gallery) ==================== -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery lightbox" hidden>
+    <div class="lightbox__backdrop" aria-hidden="true"></div>
     <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
       <i class="fas fa-times"></i>
     </button>
     <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">
       <i class="fas fa-chevron-right"></i>
     </button>
-    <img src="" alt="" id="lightbox-img" class="lightbox-img">
+    <div class="lightbox__stage">
+      <img src="" alt="" id="lightbox-img" class="lightbox-img">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
     <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">
       <i class="fas fa-chevron-left"></i>
     </button>
@@ -238,7 +239,6 @@
         </div>
         <p class="hero-date" data-aos="fade-up" data-aos-delay="500" id="hero-date"></p>
         <p class="hero-message" data-aos="fade-up" data-aos-delay="600" id="hero-message"></p>
-        <a href="#rsvp" class="btn btn-primary hero-cta" data-aos="fade-up" data-aos-delay="800" id="hero-cta"></a>
       </div>
       <a href="#countdown" class="hero-scroll" aria-label="Scroll down">
         <span class="scroll-mouse"></span>
@@ -296,7 +296,7 @@
           <div class="col-md-5 col-lg-4" data-aos="fade-left" data-aos-delay="100">
             <article class="couple-card" id="bride-card">
               <div class="couple-image-wrap">
-                <img src="" alt="" class="couple-image" id="bride-image" loading="lazy">
+                <img src="assets/bride.jpg" alt="Farah" class="couple-image couple-image--loading" id="bride-image" width="800" height="1000" decoding="async" fetchpriority="high" data-fallback="assets/bride.svg">
                 <div class="couple-image-overlay"></div>
               </div>
               <div class="couple-info">
@@ -312,7 +312,7 @@
           <div class="col-md-5 col-lg-4" data-aos="fade-right" data-aos-delay="100">
             <article class="couple-card" id="groom-card">
               <div class="couple-image-wrap">
-                <img src="" alt="" class="couple-image" id="groom-image" loading="lazy">
+                <img src="assets/groom.jpg" alt="Adam" class="couple-image couple-image--loading" id="groom-image" width="800" height="1000" decoding="async" fetchpriority="high" data-fallback="assets/groom.svg">
                 <div class="couple-image-overlay"></div>
               </div>
               <div class="couple-info">
@@ -340,13 +340,21 @@
 
     <!-- ==================== EVENT DETAILS ==================== -->
     <section id="details" class="section details-section">
+      <div class="details-section__accent details-section__accent--left" aria-hidden="true"></div>
+      <div class="details-section__accent details-section__accent--right" aria-hidden="true"></div>
       <div class="container">
-        <div class="section-header text-center" data-aos="fade-up">
-          <span class="section-label" id="details-label"></span>
-          <h2 class="section-title" id="details-title"></h2>
-          <div class="title-ornament"><span></span><i class="fas fa-calendar-check"></i><span></span></div>
+        <div class="section-header details-header text-center" data-aos="fade-up" data-aos-duration="600">
+          <span class="section-label details-label" id="details-label"></span>
+          <h2 class="section-title details-title" id="details-title"></h2>
+          <div class="details-floral-divider" aria-hidden="true">
+            <span class="details-floral-divider__line"></span>
+            <i class="fas fa-leaf details-floral-divider__leaf details-floral-divider__leaf--left"></i>
+            <i class="fas fa-gem details-floral-divider__gem"></i>
+            <i class="fas fa-leaf details-floral-divider__leaf details-floral-divider__leaf--right"></i>
+            <span class="details-floral-divider__line"></span>
+          </div>
         </div>
-        <div class="row g-4" id="event-details-grid"></div>
+        <div class="details-grid" id="event-details-grid"></div>
       </div>
     </section>
 
@@ -370,13 +378,34 @@
 
     <!-- ==================== GALLERY ==================== -->
     <section id="gallery" class="section gallery-section">
+      <div class="gallery-section__particles" aria-hidden="true">
+        <span class="gallery-particle"></span>
+        <span class="gallery-particle"></span>
+        <span class="gallery-particle"></span>
+        <span class="gallery-particle"></span>
+        <span class="gallery-particle"></span>
+        <span class="gallery-particle"></span>
+      </div>
+      <div class="gallery-section__corner gallery-section__corner--tl" aria-hidden="true">
+        <i class="fas fa-leaf"></i>
+      </div>
+      <div class="gallery-section__corner gallery-section__corner--br" aria-hidden="true">
+        <i class="fas fa-leaf"></i>
+      </div>
       <div class="container">
-        <div class="section-header text-center" data-aos="fade-up">
-          <span class="section-label" id="gallery-label"></span>
-          <h2 class="section-title" id="gallery-title"></h2>
-          <div class="title-ornament"><span></span><i class="fas fa-camera"></i><span></span></div>
+        <div class="section-header gallery-header text-center" data-aos="fade-up" data-aos-duration="600">
+          <span class="section-label gallery-label" id="gallery-label"></span>
+          <h2 class="section-title gallery-title" id="gallery-title"></h2>
+          <p class="gallery-subtitle" id="gallery-subtitle" data-aos="fade-up" data-aos-delay="180" data-aos-duration="600"></p>
+          <div class="gallery-floral-divider" aria-hidden="true">
+            <span class="gallery-floral-divider__line"></span>
+            <i class="fas fa-camera gallery-floral-divider__icon"></i>
+            <i class="fas fa-heart gallery-floral-divider__heart"></i>
+            <i class="fas fa-camera gallery-floral-divider__icon"></i>
+            <span class="gallery-floral-divider__line"></span>
+          </div>
         </div>
-        <div class="row g-3 g-md-4" id="gallery-grid"></div>
+        <div class="gallery-masonry" id="gallery-grid"></div>
       </div>
     </section>
 
@@ -392,48 +421,6 @@
           <iframe id="map-iframe" title="Wedding venue location" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
         <p class="map-address text-center mt-4" id="map-address" data-aos="fade-up"></p>
-      </div>
-    </section>
-
-    <!-- ==================== RSVP FORM ==================== -->
-    <section id="rsvp" class="section rsvp-section">
-      <div class="container">
-        <div class="section-header text-center" data-aos="fade-up">
-          <span class="section-label" id="rsvp-label"></span>
-          <h2 class="section-title" id="rsvp-title"></h2>
-          <div class="title-ornament"><span></span><i class="fas fa-envelope-open-text"></i><span></span></div>
-          <p class="section-desc" id="rsvp-desc"></p>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <form id="rsvp-form" class="rsvp-form" data-aos="fade-up" data-aos-delay="200" novalidate>
-              <div class="mb-4">
-                <label for="guest-name" class="form-label" id="label-guest-name"></label>
-                <input type="text" class="form-control form-control-lg" id="guest-name" required autocomplete="name">
-              </div>
-              <div class="mb-4">
-                <label for="guest-phone" class="form-label" id="label-guest-phone"></label>
-                <input type="tel" class="form-control form-control-lg" id="guest-phone" required autocomplete="tel" dir="ltr">
-              </div>
-              <div class="mb-4">
-                <label for="guest-count" class="form-label" id="label-guest-count"></label>
-                <select class="form-select form-select-lg" id="guest-count" required></select>
-              </div>
-              <div class="mb-4">
-                <label class="form-label" id="label-attendance"></label>
-                <div class="attendance-options" id="attendance-options"></div>
-              </div>
-              <div class="rsvp-buttons">
-                <button type="button" class="btn btn-primary btn-lg" id="btn-confirm">
-                  <i class="fas fa-check-circle me-2"></i><span id="btn-confirm-text"></span>
-                </button>
-                <button type="button" class="btn btn-outline-primary btn-lg" id="btn-decline">
-                  <i class="fas fa-times-circle me-2"></i><span id="btn-decline-text"></span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -460,22 +447,6 @@
       </div>
     </section>
 
-    <!-- ==================== FAQ ACCORDION ==================== -->
-    <section id="faq" class="section faq-section">
-      <div class="container">
-        <div class="section-header text-center" data-aos="fade-up">
-          <span class="section-label" id="faq-label"></span>
-          <h2 class="section-title" id="faq-title"></h2>
-          <div class="title-ornament"><span></span><i class="fas fa-question-circle"></i><span></span></div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="accordion faq-accordion" id="faq-accordion" data-aos="fade-up" data-aos-delay="200"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ==================== FOOTER ==================== -->
@@ -485,7 +456,6 @@
       <h3 class="footer-names" id="footer-names"></h3>
       <p class="footer-date" id="footer-date"></p>
       <p class="footer-tagline" id="footer-tagline"></p>
-      <div class="footer-social" id="footer-social"></div>
       <div class="footer-attribution" id="footer-attribution"></div>
       <p class="footer-copy" id="footer-copy"></p>
     </div>

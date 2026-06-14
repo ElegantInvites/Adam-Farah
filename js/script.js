@@ -28,7 +28,8 @@ const WEDDING_CONFIG = {
       role: 'العريس',
       description: 'رجل طموح يؤمن بأن الحب الحقيقي يُبنى على الاحترام والصدق. يحلم ببناء أسرة جميلة مع شريك حياته.',
       image: 'assets/groom.jpg',
-      imageFallback: 'assets/groom.svg'
+      imageFallback: 'assets/groom.svg',
+      objectPosition: 'center 20%'
     },
     bride: {
       name: 'Farah',
@@ -36,7 +37,8 @@ const WEDDING_CONFIG = {
       role: 'العروس',
       description: 'امرأة رقيقة ذات قلب كبير، تجمع بين الأناقة والدفء. تؤمن بأن كل لحظة مع من تحب هي كنز.',
       image: 'assets/bride.jpg',
-      imageFallback: 'assets/bride.svg'
+      imageFallback: 'assets/bride.svg',
+      objectPosition: 'center 20%'
     },
     displayNames: 'Adam & Farah',
     displayNamesAr: 'آدم & فرح'
@@ -94,7 +96,14 @@ const WEDDING_CONFIG = {
     },
     gallery: {
       label: 'معرض الصور',
-      title: 'لحظات لا تُنسى'
+      title: 'لحظات لا تُنسى',
+      subtitle: 'لمحة رومانسية من قصة حبنا',
+      overlays: [
+        { icon: '📷', text: 'لحظة زفاف' },
+        { icon: '💍', text: 'قصتنا' },
+        { icon: '📷', text: 'لحظة زفاف' },
+        { icon: '💍', text: 'قصتنا' }
+      ]
     },
     map: {
       label: 'الموقع',
@@ -125,30 +134,32 @@ const WEDDING_CONFIG = {
   /* ---------- Event Details Cards ---------- */
   eventDetails: [
     {
+      key: 'date',
       icon: 'fa-calendar-days',
       label: 'التاريخ',
-      value: '15 سبتمبر 2026'
+      value: '15 سبتمبر 2026',
+      animation: 'fade-right'
     },
     {
+      key: 'time',
       icon: 'fa-clock',
       label: 'الوقت',
-      value: '6:00 مساءً'
+      value: '6:00 مساءً',
+      animation: 'fade-left'
     },
     {
+      key: 'venue',
       icon: 'fa-location-dot',
       label: 'المكان',
-      value: 'قاعة Royal Palace — التجمع الخامس، القاهرة'
+      value: 'قاعة Royal Palace — التجمع الخامس، القاهرة',
+      animation: 'zoom-in'
     },
     {
-      icon: 'fa-shirt',
+      key: 'dress',
+      icon: 'fa-person-dress',
       label: 'الزي',
-      value: 'رسمي / Black Tie Optional'
-    },
-    {
-      icon: 'fa-phone',
-      label: 'للتواصل',
-      value: '+20 109 913 7799',
-      link: 'tel:+201099137799'
+      value: 'رسمي / Black Tie Optional',
+      animation: 'fade-up'
     }
   ],
 
@@ -172,7 +183,7 @@ const WEDDING_CONFIG = {
   /* ---------- Gallery Images ---------- */
   gallery: [
     { src: 'assets/gallery1.jpg', fallback: 'assets/gallery1.svg', alt: 'Wedding moment 1' },
-    { src: 'assets/gallery2.jpg', fallback: 'assets/gallery2.svg', alt: 'Wedding moment 2' },
+    { src: 'assets/gallery2.jpg', fallback: 'assets/gallery2.svg', alt: 'Engagement moment' },
     { src: 'assets/gallery3.jpg', fallback: 'assets/gallery3.svg', alt: 'Wedding moment 3' },
     { src: 'assets/gallery4.jpg', fallback: 'assets/gallery4.svg', alt: 'Wedding moment 4' }
   ],
@@ -284,7 +295,7 @@ const WEDDING_CONFIG = {
     tagline: 'We invite you to celebrate our wedding',
     enterMusicBtn: 'Enter With Music',
     openInvitationBtn: 'Open Invitation',
-    animationDuration: 7000 // 6–8 seconds door sequence
+    animationDuration: 7000
   }
 };
 
@@ -350,7 +361,17 @@ const translations = {
         googleBtn: 'Google Calendar',
         icsBtn: 'تحميل ملف التقويم'
       },
-      gallery: { label: 'معرض الصور', title: 'لحظات لا تُنسى' },
+      gallery: {
+        label: 'معرض الصور',
+        title: 'لحظات لا تُنسى',
+        subtitle: 'لمحة رومانسية من قصة حبنا',
+        overlays: [
+          { icon: '📷', text: 'لحظة زفاف' },
+          { icon: '💍', text: 'قصتنا' },
+          { icon: '📷', text: 'لحظة زفاف' },
+          { icon: '💍', text: 'قصتنا' }
+        ]
+      },
       map: { label: 'الموقع', title: 'كيف تصل إلينا' },
       rsvp: {
         label: 'تأكيد الحضور',
@@ -381,11 +402,10 @@ const translations = {
       displayNames: 'آدم & فرح'
     },
     eventDetails: [
-      { icon: 'fa-calendar-days', label: 'التاريخ', value: '15 سبتمبر 2026' },
-      { icon: 'fa-clock', label: 'الوقت', value: '6:00 مساءً' },
-      { icon: 'fa-location-dot', label: 'المكان', value: 'قاعة Royal Palace — التجمع الخامس، القاهرة' },
-      { icon: 'fa-shirt', label: 'الزي', value: 'رسمي / Black Tie Optional' },
-      { icon: 'fa-phone', label: 'للتواصل', value: '+20 109 913 7799', link: 'tel:+201099137799' }
+      { key: 'date', icon: 'fa-calendar-days', label: 'التاريخ', value: '15 سبتمبر 2026', animation: 'fade-right' },
+      { key: 'time', icon: 'fa-clock', label: 'الوقت', value: '6:00 مساءً', animation: 'fade-left' },
+      { key: 'venue', icon: 'fa-location-dot', label: 'المكان', value: 'قاعة Royal Palace — التجمع الخامس، القاهرة', animation: 'zoom-in' },
+      { key: 'dress', icon: 'fa-person-dress', label: 'الزي', value: 'رسمي / Black Tie Optional', animation: 'fade-up' }
     ],
     story: [
       { year: '2020', title: 'أول لقاء', text: 'التقينا في مناسبة عائلية، وبدأت قصة جميلة مليئة بالضحك والمحادثات الطويلة.' },
@@ -469,7 +489,17 @@ const translations = {
         googleBtn: 'Google Calendar',
         icsBtn: 'Download Calendar File'
       },
-      gallery: { label: 'Photo Gallery', title: 'Unforgettable Moments' },
+      gallery: {
+        label: 'Photo Gallery',
+        title: 'Unforgettable Moments',
+        subtitle: 'A romantic glimpse into our love story',
+        overlays: [
+          { icon: '📷', text: 'Wedding Moment' },
+          { icon: '💍', text: 'Our Story' },
+          { icon: '📷', text: 'Wedding Moment' },
+          { icon: '💍', text: 'Our Story' }
+        ]
+      },
       map: { label: 'Location', title: 'How to Find Us' },
       rsvp: {
         label: 'RSVP',
@@ -500,11 +530,10 @@ const translations = {
       displayNames: 'Adam & Farah'
     },
     eventDetails: [
-      { icon: 'fa-calendar-days', label: 'Date', value: 'September 15, 2026' },
-      { icon: 'fa-clock', label: 'Time', value: '6:00 PM' },
-      { icon: 'fa-location-dot', label: 'Venue', value: 'Royal Palace Hall — Fifth Settlement, Cairo' },
-      { icon: 'fa-shirt', label: 'Dress Code', value: 'Formal / Black Tie Optional' },
-      { icon: 'fa-phone', label: 'Contact', value: '+20 109 913 7799', link: 'tel:+201099137799' }
+      { key: 'date', icon: 'fa-calendar-days', label: 'Date', value: 'September 15, 2026', animation: 'fade-right' },
+      { key: 'time', icon: 'fa-clock', label: 'Time', value: '6:00 PM', animation: 'fade-left' },
+      { key: 'venue', icon: 'fa-location-dot', label: 'Venue', value: 'Royal Palace Hall — Fifth Settlement, Cairo', animation: 'zoom-in' },
+      { key: 'dress', icon: 'fa-person-dress', label: 'Dress Code', value: 'Formal / Black Tie Optional', animation: 'fade-up' }
     ],
     story: [
       { year: '2020', title: 'First Meeting', text: 'We met at a family gathering, and a beautiful story began filled with laughter and long conversations.' },
@@ -557,6 +586,9 @@ const translations = {
   let currentLang = 'ar';
   let currentTheme = 'light';
   let galleryImages = [];
+  let galleryItemsData = [];
+  const GALLERY_ANIMATIONS = ['fade-right', 'zoom-in', 'fade-up', 'fade-left'];
+  const GALLERY_PARALLAX_SPEEDS = [0.035, 0.055, 0.045, 0.065];
   let currentLightboxIndex = 0;
   let countdownInterval = null;
   let introParticleFrame = null;
@@ -726,11 +758,6 @@ const translations = {
     setText('hero-names', t.hero.names);
     setText('hero-date', t.wedding.dateDisplay);
     setText('hero-message', t.hero.message);
-    const cta = document.getElementById('hero-cta');
-    if (cta) {
-      cta.textContent = t.hero.ctaText;
-      cta.href = config.hero.ctaLink;
-    }
     setHeroBackground(config.hero.image);
 
     /* Countdown labels */
@@ -767,6 +794,7 @@ const translations = {
     /* Gallery */
     setText('gallery-label', t.sections.gallery.label);
     setText('gallery-title', t.sections.gallery.title);
+    setText('gallery-subtitle', t.sections.gallery.subtitle);
     renderGallery();
 
     /* Map */
@@ -831,16 +859,71 @@ const translations = {
   function setHeroBackground(src) {
     const parallax = document.getElementById('hero-parallax');
     if (parallax) {
-      parallax.style.backgroundImage = `url('${src}')`;
+      parallax.style.backgroundImage = `url('${resolveAssetPath(src)}')`;
+    }
+  }
+
+  function resolveAssetPath(path) {
+    if (!path || /^(https?:|data:|\/\/)/.test(path)) return path;
+    const base = document.querySelector('base');
+    if (base?.href) {
+      try {
+        return new URL(path, base.href).href;
+      } catch (e) { /* fall through */ }
+    }
+    try {
+      return new URL(path, window.location.href).href;
+    } catch (e) {
+      return path;
+    }
+  }
+
+  function bindImageWithFallback(img) {
+    if (!img || img.dataset.fallbackBound === 'true') return;
+    img.dataset.fallbackBound = 'true';
+
+    const markLoaded = () => {
+      img.classList.remove('couple-image--loading');
+      img.classList.add('couple-image--loaded');
+      if (img.src.includes('.svg')) {
+        img.classList.add('couple-image--fallback');
+      }
+    };
+
+    img.addEventListener('load', markLoaded);
+    img.addEventListener('error', function onImageError() {
+      const fallback = this.dataset.fallback;
+      if (fallback && this.dataset.fallbackUsed !== 'true') {
+        this.dataset.fallbackUsed = 'true';
+        this.src = resolveAssetPath(fallback);
+        this.classList.add('couple-image--fallback');
+        return;
+      }
+      this.classList.add('couple-image--error');
+    });
+
+    if (img.complete && img.naturalWidth > 0) {
+      markLoaded();
     }
   }
 
   function setCoupleCard(type, textData, imageData) {
     const img = document.getElementById(`${type}-image`);
     if (img) {
-      img.src = imageData.image;
+      const primary = resolveAssetPath(imageData.image);
+      const fallback = resolveAssetPath(imageData.imageFallback || '');
       img.alt = textData.name;
-      img.dataset.fallback = imageData.imageFallback || '';
+      img.dataset.fallback = fallback;
+      img.style.setProperty('--couple-img-position', imageData.objectPosition || 'center center');
+      bindImageWithFallback(img);
+      const currentPath = (img.getAttribute('src') || '').split('?')[0];
+      const targetPath = imageData.image;
+      if (currentPath !== targetPath && !img.src.endsWith(targetPath)) {
+        img.dataset.fallbackUsed = 'false';
+        img.classList.remove('couple-image--fallback', 'couple-image--error', 'couple-image--loaded');
+        img.classList.add('couple-image--loading');
+        img.src = primary;
+      }
     }
     setText(`${type}-name`, textData.name);
     setText(`${type}-role`, textData.role);
@@ -849,21 +932,20 @@ const translations = {
 
   /* ---------- Image Fallback (jpg → svg) ---------- */
   function initImageFallbacks() {
-    document.querySelectorAll('img[data-fallback]').forEach((img) => {
-      img.addEventListener('error', function onError() {
-        if (this.dataset.fallback && this.src !== this.dataset.fallback) {
-          this.src = this.dataset.fallback;
-        }
-        this.removeEventListener('error', onError);
-      });
+    ['bride-image', 'groom-image'].forEach((id) => {
+      bindImageWithFallback(document.getElementById(id));
+    });
+
+    document.querySelectorAll('img[data-fallback]:not([data-fallback-bound])').forEach((img) => {
+      bindImageWithFallback(img);
     });
 
     /* Hero background fallback */
     const testImg = new Image();
     testImg.onerror = () => {
-      if (config.hero.imageFallback) setHeroBackground(config.hero.imageFallback);
+      if (config.hero.imageFallback) setHeroBackground(resolveAssetPath(config.hero.imageFallback));
     };
-    testImg.src = config.hero.image;
+    testImg.src = resolveAssetPath(config.hero.image);
   }
 
   /* ---------- Timeline Renderer ---------- */
@@ -889,22 +971,31 @@ const translations = {
     const grid = document.getElementById('event-details-grid');
     if (!grid) return;
     const t = getLangPack();
+    const animationDurations = [500, 550, 500, 600];
 
-    grid.innerHTML = t.eventDetails.map((item, i) => {
-      const valueHtml = item.link
-        ? `<a href="${item.link}" dir="ltr">${escapeHtml(item.value)}</a>`
-        : escapeHtml(item.value);
-
-      return `
-        <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="${i * 80}">
-          <div class="detail-card">
+    grid.innerHTML = t.eventDetails.map((item, i) => `
+      <div class="details-grid__item"
+           data-aos="${item.animation || 'fade-up'}"
+           data-aos-duration="${animationDurations[i] || 500}"
+           data-aos-delay="${i * 100}">
+        <article class="detail-card detail-card--${item.key || 'info'}">
+          <div class="detail-card__accent" aria-hidden="true"></div>
+          <div class="detail-icon-wrap">
             <div class="detail-icon"><i class="fas ${item.icon}"></i></div>
-            <p class="detail-label">${escapeHtml(item.label)}</p>
-            <p class="detail-value">${valueHtml}</p>
           </div>
-        </div>
-      `;
-    }).join('');
+          <p class="detail-label">${escapeHtml(item.label)}</p>
+          <p class="detail-value">${escapeHtml(item.value)}</p>
+        </article>
+      </div>
+    `).join('');
+
+    if (typeof AOS !== 'undefined') {
+      if (typeof AOS.refreshHard === 'function') {
+        AOS.refreshHard();
+      } else {
+        AOS.refresh();
+      }
+    }
   }
 
   /* ---------- Gallery Renderer ---------- */
@@ -912,16 +1003,99 @@ const translations = {
     const grid = document.getElementById('gallery-grid');
     if (!grid) return;
 
-    galleryImages = config.gallery.map((g) => g.src);
+    const t = getLangPack();
+    galleryImages = [];
+    galleryItemsData = [];
 
-    grid.innerHTML = config.gallery.map((item, i) => `
-      <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="${i * 100}">
-        <div class="gallery-item" data-index="${i}" role="button" tabindex="0" aria-label="View ${escapeHtml(item.alt)}">
-          <img src="${item.src}" data-fallback="${item.fallback || ''}" alt="${escapeHtml(item.alt)}" loading="lazy">
-          <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-        </div>
-      </div>
-    `).join('');
+    grid.innerHTML = config.gallery.map((item, i) => {
+      const overlay = t.sections.gallery.overlays[i] || t.sections.gallery.overlays[i % 2];
+      const animation = GALLERY_ANIMATIONS[i] || 'fade-up';
+      const src = resolveAssetPath(item.src);
+
+      return `
+        <article class="gallery-item gallery-item--loading"
+                 data-src="${escapeHtml(src)}"
+                 data-alt="${escapeHtml(item.alt)}"
+                 data-parallax-speed="${GALLERY_PARALLAX_SPEEDS[i] || 0.05}"
+                 data-aos="${animation}"
+                 data-aos-duration="550"
+                 data-aos-delay="${i * 150}"
+                 role="button"
+                 tabindex="0"
+                 aria-label="${escapeHtml(item.alt)}">
+          <div class="gallery-item__frame">
+            <span class="gallery-item__corner gallery-item__corner--tl" aria-hidden="true"></span>
+            <span class="gallery-item__corner gallery-item__corner--br" aria-hidden="true"></span>
+            <img class="gallery-item__img" src="${src}" alt="${escapeHtml(item.alt)}" loading="eager" decoding="async">
+            <div class="gallery-item__overlay">
+              <div class="gallery-item__overlay-content">
+                <span class="gallery-item__overlay-icon">${overlay.icon}</span>
+                <span class="gallery-item__overlay-text">${escapeHtml(overlay.text)}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.gallery-item').forEach((card) => {
+      const img = card.querySelector('.gallery-item__img');
+      if (!img) return;
+
+      const reveal = () => {
+        card.classList.remove('gallery-item--loading');
+        card.classList.add('gallery-item--loaded');
+        refreshGalleryState();
+      };
+
+      const hide = () => {
+        card.remove();
+        refreshGalleryState();
+      };
+
+      if (img.complete && img.naturalWidth > 0) {
+        reveal();
+        return;
+      }
+
+      img.addEventListener('load', reveal, { once: true });
+      img.addEventListener('error', hide, { once: true });
+    });
+
+    refreshGalleryState();
+
+    if (typeof AOS !== 'undefined') {
+      requestAnimationFrame(() => {
+        if (typeof AOS.refreshHard === 'function') {
+          AOS.refreshHard();
+        } else {
+          AOS.refresh();
+        }
+      });
+    }
+  }
+
+  function refreshGalleryState() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+
+    const loadedItems = [...grid.querySelectorAll('.gallery-item:not(.gallery-item--loading)')];
+    const allItems = [...grid.querySelectorAll('.gallery-item')];
+    const layoutCount = loadedItems.length || allItems.length;
+
+    galleryImages = [];
+    galleryItemsData = [];
+
+    loadedItems.forEach((item, index) => {
+      item.dataset.index = String(index);
+      galleryImages.push(item.dataset.src);
+      galleryItemsData.push({ src: item.dataset.src, alt: item.dataset.alt });
+    });
+
+    grid.className = 'gallery-masonry';
+    if (layoutCount > 0) {
+      grid.classList.add(`gallery-masonry--count-${layoutCount}`);
+    }
   }
 
   /* ---------- Guest Count & Attendance Options ---------- */
@@ -1059,6 +1233,7 @@ const translations = {
     });
 
     setTimeout(hide, config.preloader.minDuration + 500);
+    setTimeout(showIntroScene, config.preloader.minDuration + 2500);
   }
 
   /* ---------- Cinematic Intro Scene ---------- */
@@ -1356,19 +1531,58 @@ const translations = {
 
     grid.addEventListener('click', (e) => {
       const item = e.target.closest('.gallery-item');
-      if (!item) return;
+      if (!item || item.classList.contains('gallery-item--loading')) return;
       openLightbox(parseInt(item.dataset.index, 10));
     });
 
     grid.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         const item = e.target.closest('.gallery-item');
-        if (item) {
+        if (item && !item.classList.contains('gallery-item--loading')) {
           e.preventDefault();
           openLightbox(parseInt(item.dataset.index, 10));
         }
       }
     });
+
+    initGalleryParallax();
+  }
+
+  function initGalleryParallax() {
+    const section = document.querySelector('.gallery-section');
+    if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+
+    const updateParallax = () => {
+      const rect = section.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+
+      if (rect.bottom < 0 || rect.top > viewHeight) {
+        ticking = false;
+        return;
+      }
+
+      const progress = (viewHeight - rect.top) / (viewHeight + rect.height);
+      const items = section.querySelectorAll('.gallery-item:not(.gallery-item--loading)');
+
+      items.forEach((item) => {
+        const speed = parseFloat(item.dataset.parallaxSpeed || '0.05');
+        const offset = (progress - 0.5) * 100 * speed;
+        item.style.setProperty('--gallery-parallax-y', `${offset}px`);
+      });
+
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateParallax);
+      }
+    }, { passive: true });
+
+    updateParallax();
   }
 
   function initLightbox() {
@@ -1382,7 +1596,7 @@ const translations = {
     nextBtn?.addEventListener('click', () => navigateLightbox(1));
 
     lightbox?.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
+      if (e.target === lightbox || e.target.classList.contains('lightbox__backdrop')) closeLightbox();
     });
 
     document.addEventListener('keydown', (e) => {
@@ -1396,26 +1610,47 @@ const translations = {
   function openLightbox(index) {
     const lightbox = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
-    if (!lightbox || !img) return;
+    const caption = document.getElementById('lightbox-caption');
+    if (!lightbox || !img || !galleryItemsData.length) return;
 
     currentLightboxIndex = index;
-    const item = config.gallery[index];
-    img.src = item.src;
-    img.alt = item.alt;
-    img.onerror = () => { if (item.fallback) img.src = item.fallback; };
+    const item = galleryItemsData[index];
+    if (!item) return;
 
-    lightbox.hidden = false;
+    const showImage = () => {
+      img.src = item.src;
+      img.alt = item.alt;
+      if (caption) caption.textContent = item.alt;
+      img.classList.remove('lightbox-img--changing');
+    };
+
+    if (!lightbox.hidden && lightbox.classList.contains('lightbox--open')) {
+      img.classList.add('lightbox-img--changing');
+      setTimeout(showImage, 220);
+    } else {
+      showImage();
+      lightbox.hidden = false;
+      requestAnimationFrame(() => {
+        lightbox.classList.add('lightbox--open');
+      });
+    }
+
     document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
     if (!lightbox) return;
-    lightbox.hidden = true;
-    document.body.style.overflow = '';
+
+    lightbox.classList.remove('lightbox--open');
+    setTimeout(() => {
+      lightbox.hidden = true;
+      document.body.style.overflow = '';
+    }, 420);
   }
 
   function navigateLightbox(direction) {
+    if (!galleryImages.length) return;
     currentLightboxIndex = (currentLightboxIndex + direction + galleryImages.length) % galleryImages.length;
     openLightbox(currentLightboxIndex);
   }
